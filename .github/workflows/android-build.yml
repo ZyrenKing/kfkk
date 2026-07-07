@@ -8,22 +8,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 جلب الكود من المستودع
+      - name: 📥 جلب الكود
         uses: actions/checkout@v4
 
-      - name: 🐍 إعداد بيئة بايثون
+      - name: 🐦 إعداد Flutter (النسخة التي يحتاجها Flet)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.5' # استخدم إصدار حديث مستقر
+
+      - name: 🐍 إعداد بايثون
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 📦 تثبيت مكتبة Flet
+      - name: 📦 تثبيت Flet
         run: pip install flet
 
-      - name: 🏗️ بناء تطبيق الأندرويد (APK)
-        run: flet build apk --no-interactive
-        # Flet سيقوم تلقائياً بتنزيل Java و Android SDK على خوادم GitHub
+      - name: 🏗️ بناء تطبيق الأندرويد (بدون تدخل)
+        # هنا لن يسأل Flet عن التنزيل لأن Flutter أصبح موجوداً بالفعل في المسار
+        run: flet build apk
+        env:
+          FLET_FORCE_YES: "true"
 
-      - name: 📤 حفظ ملف الـ APK للتحميل
+      - name: 📤 حفظ ملف الـ APK
         uses: actions/upload-artifact@v4
         with:
           name: my-flet-app-apk
