@@ -15,7 +15,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.38.3' 
+          flutter-version: '3.41.7' 
 
       - name: 🐍 إعداد بايثون
         uses: actions/setup-python@v5
