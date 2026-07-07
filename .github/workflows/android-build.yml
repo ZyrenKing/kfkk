@@ -1,4 +1,4 @@
-name: Builds
+name: Buildgs
 
 on:
   workflow_dispatch:
@@ -29,8 +29,8 @@ jobs:
 
       - name: 🏗️ بناء تطبيق الأندرويد
         # نستخدم --yes مع المتغير البيئي الذي عرفناه في الأعلى
-        run: flet build apk --yes
-
+        run: flet build apk --yes --template-ref main
+     
       - name: 📤 حفظ ملف الـ APK
         uses: actions/upload-artifact@v4
         with:
