@@ -1,14 +1,14 @@
 name: Build Android App (Flet)
 
 on:
-  workflow_dispatch: # هذا السطر يسمح لك بتشغيل البناء يدوياً بضغطة زر
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 جلب الكود من المستودع
+      - name: 📥 جلب الكود
         uses: actions/checkout@v4
 
       - name: 🐍 إعداد بيئة بايثون
@@ -16,14 +16,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 📦 تثبيت مكتبة Flet
-        run: pip install flet --yes
+      - name: 📦 تثبيت Flet
+        run: pip install flet
 
       - name: 🏗️ بناء تطبيق الأندرويد (APK)
-        run: flet build apk
-        # Flet سيقوم تلقائياً بتنزيل Java و Android SDK على خوادم GitHub
+        # هذا السطر هو الأهم: هو يمرر الـ yes تلقائياً ويخبر النظام أن يتخطى أي أسئلة
+        run: flet build apk --yes
+        env:
+          FLET_FORCE_YES: "true"
 
-      - name: 📤 حفظ ملف الـ APK للتحميل
+      - name: 📤 حفظ ملف الـ APK
         uses: actions/upload-artifact@v4
         with:
           name: my-flet-app-apk
