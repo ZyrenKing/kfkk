@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 جلب الكود
+      - name: 📥 جلب الكود من المستودع
         uses: actions/checkout@v4
 
       - name: 🐍 إعداد بيئة بايثون
@@ -16,16 +16,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 📦 تثبيت Flet
+      - name: 📦 تثبيت مكتبة Flet
         run: pip install flet
 
       - name: 🏗️ بناء تطبيق الأندرويد (APK)
-        # هذا السطر هو الأهم: هو يمرر الـ yes تلقائياً ويخبر النظام أن يتخطى أي أسئلة
-        run: flet build apk --yes
-        env:
-          FLET_FORCE_YES: "true"
+        run: flet build apk --no-interactive
+        # Flet سيقوم تلقائياً بتنزيل Java و Android SDK على خوادم GitHub
 
-      - name: 📤 حفظ ملف الـ APK
+      - name: 📤 حفظ ملف الـ APK للتحميل
         uses: actions/upload-artifact@v4
         with:
           name: my-flet-app-apk
