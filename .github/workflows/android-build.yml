@@ -1,4 +1,4 @@
-name: Build Android AppSS
+name: Builds
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.41.7' # نثبت الإصدار الذي يطلبه Flet بالضبط
+          flutter-version: '3.38.3' # نثبت الإصدار الذي يطلبه Flet بالضبط
 
       - name: 🐍 إعداد بايثون 3.11
         uses: actions/setup-python@v5
