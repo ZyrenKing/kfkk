@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
       - name: 📦 تثبيت مكتبة Flet
-        run: pip install flet
+        run: pip install flet --yes
 
       - name: 🏗️ بناء تطبيق الأندرويد (APK)
         run: flet build apk
