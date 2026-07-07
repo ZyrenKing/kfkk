@@ -1,4 +1,4 @@
-name: Build Android App (Flet)
+name: Build Android App (Flet 0.80.0)
 
 on:
   workflow_dispatch:
@@ -11,23 +11,23 @@ jobs:
       - name: 📥 جلب الكود
         uses: actions/checkout@v4
 
-      - name: 🐦 إعداد Flutter (النسخة التي يحتاجها Flet)
+      - name: 🐦 إعداد Flutter (الإصدار المطلوب 3.38.3)
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.5' # استخدم إصدار حديث مستقر
+          flutter-version: '3.38.3' 
 
       - name: 🐍 إعداد بايثون
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 📦 تثبيت Flet
-        run: pip install flet
+      - name: 📦 تثبيت Flet 0.80.0
+        run: pip install flet==0.80.0
 
-      - name: 🏗️ بناء تطبيق الأندرويد (بدون تدخل)
-        # هنا لن يسأل Flet عن التنزيل لأن Flutter أصبح موجوداً بالفعل في المسار
-        run: flet build apk
+      - name: 🏗️ بناء تطبيق الأندرويد
+        # إجبار البناء على التجاوز التلقائي
+        run: flet build apk --yes
         env:
           FLET_FORCE_YES: "true"
 
